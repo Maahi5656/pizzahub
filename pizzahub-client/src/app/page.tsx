@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -56,17 +56,109 @@ export default function Home() {
               </div>
               <a href="menu.html" className="text-brand text-sm font-medium">View All Shops</a>
           </div>
-          <div id="shopgrid" className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"><div className="bg-white rounded-2xl border shadow-sm overflow-hidden"><div className="h-32 bg-gradient-to-br from-amber-700 to-red-900 grid place-items-center text-white text-xl font-bold relative">Pizza Palace<span className="absolute top-2 right-2 bg-amber-400 text-gray-900 text-[10px] px-2 py-0.5 rounded">Top Rated</span></div><div className="p-4"><h3 className="font-bold">Pizza Palace</h3><p className="text-sm"><span className="text-amber-500">★</span> <b>4.7</b> <span className="text-gray-400">(1.2k+ reviews)</span></p><p className="text-xs text-gray-500 mt-1">📍 Dhaka, Dhanmondi</p><div className="flex gap-2 mt-2 text-[11px]"><span className="bg-green-50 text-green-700 px-2 py-0.5 rounded">Fast Delivery</span><span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Free Delivery</span></div><a href="menu.html" className="mt-3 block text-center bg-brand text-white text-sm font-semibold rounded-lg py-2">View Menu</a></div></div><div className="bg-white rounded-2xl border shadow-sm overflow-hidden"><div className="h-32 bg-gradient-to-br from-gray-700 to-gray-900 grid place-items-center text-white text-xl font-bold relative">The Oven</div><div className="p-4"><h3 className="font-bold">The Oven</h3><p className="text-sm"><span className="text-amber-500">★</span> <b>4.5</b> <span className="text-gray-400">(980+ reviews)</span></p><p className="text-xs text-gray-500 mt-1">📍 Dhaka, Gulshan</p><div className="flex gap-2 mt-2 text-[11px]"><span className="bg-green-50 text-green-700 px-2 py-0.5 rounded">Fast Delivery</span><span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Free Delivery</span></div><a href="menu.html" className="mt-3 block text-center bg-brand text-white text-sm font-semibold rounded-lg py-2">View Menu</a></div></div><div className="bg-white rounded-2xl border shadow-sm overflow-hidden"><div className="h-32 bg-gradient-to-br from-red-600 to-red-900 grid place-items-center text-white text-xl font-bold relative">Slice House</div><div className="p-4"><h3 className="font-bold">Slice House</h3><p className="text-sm"><span className="text-amber-500">★</span> <b>4.3</b> <span className="text-gray-400">(760+ reviews)</span></p><p className="text-xs text-gray-500 mt-1">📍 Dhaka, Banani</p><div className="flex gap-2 mt-2 text-[11px]"><span className="bg-green-50 text-green-700 px-2 py-0.5 rounded">Fast Delivery</span><span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Free Delivery</span></div><a href="menu.html" className="mt-3 block text-center bg-brand text-white text-sm font-semibold rounded-lg py-2">View Menu</a></div></div><div className="bg-white rounded-2xl border shadow-sm overflow-hidden"><div className="h-32 bg-gradient-to-br from-orange-600 to-amber-900 grid place-items-center text-white text-xl font-bold relative">Cheesy Bite</div><div className="p-4"><h3 className="font-bold">Cheesy Bite</h3><p className="text-sm"><span className="text-amber-500">★</span> <b>4.6</b> <span className="text-gray-400">(540+ reviews)</span></p><p className="text-xs text-gray-500 mt-1">📍 Dhaka, Mohammadpur</p><div className="flex gap-2 mt-2 text-[11px]"><span className="bg-green-50 text-green-700 px-2 py-0.5 rounded">Fast Delivery</span><span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Free Delivery</span></div><a href="menu.html" className="mt-3 block text-center bg-brand text-white text-sm font-semibold rounded-lg py-2">View Menu</a></div></div></div>
+          <div id="shopgrid" className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+              <div className="h-32 bg-gradient-to-br from-amber-700 to-red-900 grid place-items-center text-white text-xl font-bold relative">Pizza Palace<span className="absolute top-2 right-2 bg-amber-400 text-gray-900 text-[10px] px-2 py-0.5 rounded">Top Rated</span></div>
+              <div className="p-4">
+                <h3 className="font-bold">Pizza Palace</h3>
+                <p className="text-sm">
+                  <span className="text-amber-500">★</span> <b>4.7</b> 
+                  <span className="text-gray-400">(1.2k+ reviews)</span>
+                </p>
+                <p className="text-xs text-gray-500 mt-1">📍 Dhaka, Dhanmondi</p>
+                <div className="flex gap-2 mt-2 text-[11px]">
+                  <span className="bg-green-50 text-green-700 px-2 py-0.5 rounded">Fast Delivery</span>
+                  <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Free Delivery</span>
+                </div>
+                <a href="menu.html" className="mt-3 block text-center bg-brand text-white text-sm font-semibold rounded-lg py-2">View Menu</a>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+              <div className="h-32 bg-gradient-to-br from-gray-700 to-gray-900 grid place-items-center text-white text-xl font-bold relative">The Oven</div>
+              <div className="p-4">
+                <h3 className="font-bold">The Oven</h3>
+                <p className="text-sm">
+                  <span className="text-amber-500">★</span> <b>4.5</b> 
+                  <span className="text-gray-400">(980+ reviews)</span>
+                </p>
+                <p className="text-xs text-gray-500 mt-1">📍 Dhaka, Gulshan</p>
+                <div className="flex gap-2 mt-2 text-[11px]">
+                  <span className="bg-green-50 text-green-700 px-2 py-0.5 rounded">Fast Delivery</span>
+                  <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Free Delivery</span>
+                </div>
+                <Link href="menu.html" className="mt-3 block text-center bg-brand text-white text-sm font-semibold rounded-lg py-2">View Menu</Link>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+              <div className="h-32 bg-gradient-to-br from-red-600 to-red-900 grid place-items-center text-white text-xl font-bold relative">Slice House</div>
+              <div className="p-4">
+                <h3 className="font-bold">Slice House</h3>
+                <p className="text-sm">
+                  <span className="text-amber-500">★</span> <b>4.3</b> 
+                  <span className="text-gray-400">(760+ reviews)</span>
+                </p>
+                <p className="text-xs text-gray-500 mt-1">📍 Dhaka, Banani</p>
+                <div className="flex gap-2 mt-2 text-[11px]">
+                  <span className="bg-green-50 text-green-700 px-2 py-0.5 rounded">Fast Delivery</span>
+                  <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Free Delivery</span>
+                </div>
+                <Link href="menu.html" className="mt-3 block text-center bg-brand text-white text-sm font-semibold rounded-lg py-2">View Menu</Link>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+              <div className="h-32 bg-gradient-to-br from-orange-600 to-amber-900 grid place-items-center text-white text-xl font-bold relative">Cheesy Bite</div>
+              <div className="p-4">
+                <h3 className="font-bold">Cheesy Bite</h3>
+                <p className="text-sm">
+                  <span className="text-amber-500">★</span> <b>4.6</b> 
+                  <span className="text-gray-400">(540+ reviews)</span>
+                </p>
+                <p className="text-xs text-gray-500 mt-1">📍 Dhaka, Mohammadpur</p>
+                <div className="flex gap-2 mt-2 text-[11px]">
+                  <span className="bg-green-50 text-green-700 px-2 py-0.5 rounded">Fast Delivery</span>
+                  <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Free Delivery</span>
+                </div>
+                <Link href="menu.html" className="mt-3 block text-center bg-brand text-white text-sm font-semibold rounded-lg py-2">View Menu</Link>
+              </div>
+            </div>
+          </div>
         </section>
         <section className="mt-12">
           <div className="flex justify-between items-end">
-              <div>
-                  <h2 className="text-xl font-bold">🍕 Popular Pizzas</h2>
-                  <p className="text-sm text-gray-500">Loved by pizza fans, top picks from our shops</p>
-              </div>
-              <a href="menu.html" className="text-brand text-sm font-medium">View All</a>
+            <div>
+                <h2 className="text-xl font-bold">🍕 Popular Pizzas</h2>
+                <p className="text-sm text-gray-500">Loved by pizza fans, top picks from our shops</p>
+            </div>
+            <Link href="/menu" className="text-brand text-sm font-medium">View All</Link>
           </div>
-          <div id="pgrid" className="mt-5 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-6"><div className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col"><div className="h-36 bg-gradient-to-br from-orange-300 to-red-400 grid place-items-center text-6xl">🍕</div><div className="p-4 flex flex-col gap-1 flex-1"><h3 className="font-bold">Margherita Pizza</h3><p className="text-sm text-gray-500">Pizza Palace</p><p className="text-sm"><span className="text-amber-500">★</span> 4.8 <span className="text-gray-400">(320)</span></p><p className="text-xs text-gray-500">📍 Dhaka · Classic</p><p className="font-extrabold text-lg mt-1">$12.99</p><a href="item-details.html" className="mt-auto block text-center bg-brand hover:bg-brand-dark text-white text-sm font-semibold rounded-lg py-2">View Details</a></div></div><div className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col"><div className="h-36 bg-gradient-to-br from-red-300 to-orange-500 grid place-items-center text-6xl">🍕</div><div className="p-4 flex flex-col gap-1 flex-1"><h3 className="font-bold">Pepperoni Pizza</h3><p className="text-sm text-gray-500">The Oven</p><p className="text-sm"><span className="text-amber-500">★</span> 4.7 <span className="text-gray-400">(285)</span></p><p className="text-xs text-gray-500">📍 Dhaka · Meat Lovers</p><p className="font-extrabold text-lg mt-1">$14.99</p><a href="item-details.html" className="mt-auto block text-center bg-brand hover:bg-brand-dark text-white text-sm font-semibold rounded-lg py-2">View Details</a></div></div><div className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col"><div className="h-36 bg-gradient-to-br from-amber-300 to-orange-600 grid place-items-center text-6xl">🍕</div><div className="p-4 flex flex-col gap-1 flex-1"><h3 className="font-bold">BBQ Chicken Pizza</h3><p className="text-sm text-gray-500">Slice House</p><p className="text-sm"><span className="text-amber-500">★</span> 4.6 <span className="text-gray-400">(198)</span></p><p className="text-xs text-gray-500">📍 Dhaka · Specialty</p><p className="font-extrabold text-lg mt-1">$15.99</p><a href="item-details.html" className="mt-auto block text-center bg-brand hover:bg-brand-dark text-white text-sm font-semibold rounded-lg py-2">View Details</a></div></div><div className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col"><div className="h-36 bg-gradient-to-br from-lime-300 to-green-500 grid place-items-center text-6xl">🍕</div><div className="p-4 flex flex-col gap-1 flex-1"><h3 className="font-bold">Veggie Delight</h3><p className="text-sm text-gray-500">Cheesy Bite</p><p className="text-sm"><span className="text-amber-500">★</span> 4.5 <span className="text-gray-400">(176)</span></p><p className="text-xs text-gray-500">📍 Sylhet · Vegetarian</p><p className="font-extrabold text-lg mt-1">$13.99</p><a href="item-details.html" className="mt-auto block text-center bg-brand hover:bg-brand-dark text-white text-sm font-semibold rounded-lg py-2">View Details</a></div></div><div className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col"><div className="h-36 bg-gradient-to-br from-rose-300 to-red-600 grid place-items-center text-6xl">🍕</div><div className="p-4 flex flex-col gap-1 flex-1"><h3 className="font-bold">Meat Lovers</h3><p className="text-sm text-gray-500">Pizza Palace</p><p className="text-sm"><span className="text-amber-500">★</span> 4.6 <span className="text-gray-400">(142)</span></p><p className="text-xs text-gray-500">📍 Dhaka · Meat Lovers</p><p className="font-extrabold text-lg mt-1">$16.99</p><a href="item-details.html" className="mt-auto block text-center bg-brand hover:bg-brand-dark text-white text-sm font-semibold rounded-lg py-2">View Details</a></div></div><div className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col"><div className="h-36 bg-gradient-to-br from-yellow-300 to-orange-500 grid place-items-center text-6xl">🍕</div><div className="p-4 flex flex-col gap-1 flex-1"><h3 className="font-bold">Hawaiian Pizza</h3><p className="text-sm text-gray-500">The Oven</p><p className="text-sm"><span className="text-amber-500">★</span> 4.3 <span className="text-gray-400">(120)</span></p><p className="text-xs text-gray-500">📍 Chittagong · Specialty</p><p className="font-extrabold text-lg mt-1">$13.99</p><a href="item-details.html" className="mt-auto block text-center bg-brand hover:bg-brand-dark text-white text-sm font-semibold rounded-lg py-2">View Details</a></div></div></div>
+          <div id="pgrid" className="mt-5 grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+            <div className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col">
+              <div className="h-36 bg-gradient-to-br from-orange-300 to-red-400 grid place-items-center text-6xl">🍕</div>
+              <div className="p-4 flex flex-col gap-1 flex-1">
+                <h3 className="font-bold">Margherita Pizza</h3>
+                <p className="text-sm text-gray-500">Pizza Palace</p>
+                <p className="text-sm">
+                  <span className="text-amber-500">★</span> 4.8 <span className="text-gray-400">(320)</span>
+                </p>
+                <p className="text-xs text-gray-500">📍 Dhaka · Classic</p>
+                <p className="font-extrabold text-lg mt-1">$12.99</p>
+                <Link href="/menu/1" className="bg-[#991B1B] mt-auto block text-center bg-brand hover:bg-brand-dark text-white text-sm font-semibold rounded-lg py-2">View Details</Link>
+              </div>
+            </div>
+            <div className="bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col">
+              <div className="h-36 bg-gradient-to-br from-red-300 to-orange-500 grid place-items-center text-6xl">🍕</div>
+              <div className="p-4 flex flex-col gap-1 flex-1">
+                <h3 className="font-bold">Pepperoni Pizza</h3>
+                <p className="text-sm text-gray-500">The Oven</p>
+                <p className="text-sm">
+                  <span className="text-amber-500">★</span> 4.7 <span className="text-gray-400">(285)</span>
+                </p>
+                <p className="text-xs text-gray-500">📍 Dhaka · Meat Lovers</p>
+                <p className="font-extrabold text-lg mt-1">$14.99</p>
+                <Link href="/menu/2" className="bg-[#991B1B] mt-auto block text-center bg-brand hover:bg-brand-dark text-white text-sm font-semibold rounded-lg py-2">View Details</Link>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
       <section className="mt-14 bg-orange-50 py-12">
