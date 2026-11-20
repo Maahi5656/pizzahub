@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-900 text-gray-300 text-sm mt-16">
+        <footer className="bg-gray-900 text-gray-300 text-sm">
           <div className="max-w-7xl mx-auto px-4 py-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
             <div><p className="text-xl font-extrabold text-white">🍕 PizzaHub</p><p className="mt-2 text-gray-400">Your favorite pizza shops, just a click away. Fresh pizza, better together.</p></div>
             <div><p className="font-semibold text-white mb-2">Quick Links</p><ul className="space-y-1"><li><a href="index.html">Home</a></li><li><a href="menu.html">Browse Menu</a></li><li><a href="index.html#shops">Pizza Shops</a></li><li><a href="login.html">Sign In</a></li><li><a href="signup.html">Sign Up</a></li></ul></div>

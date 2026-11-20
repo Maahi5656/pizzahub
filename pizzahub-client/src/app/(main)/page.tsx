@@ -188,7 +188,7 @@ export default function Home() {
             </div>
         </div>
       </section>
-      <section className="max-w-7xl mx-auto px-4 mt-12">
+      <section className="max-w-7xl mx-auto px-4 my-12">
         <h2 className="text-xl font-bold">Why Choose PizzaHub?</h2>
         <div className="mt-6 grid gap-4 grid-cols-2 lg:grid-cols-5 text-center text-sm" id="why"><div className="p-3"><div className="text-3xl">🏪</div><h3 className="font-semibold mt-2">Multiple Local Shops</h3><p className="text-gray-500 text-xs mt-1">Discover the best pizza shops in your area.</p></div><div className="p-3"><div className="text-3xl">🔒</div><h3 className="font-semibold mt-2">Safe &amp; Secure</h3><p className="text-gray-500 text-xs mt-1">Secure payments and trusted vendors.</p></div><div className="p-3"><div className="text-3xl">🚚</div><h3 className="font-semibold mt-2">Fast Delivery</h3><p className="text-gray-500 text-xs mt-1">Get your pizza fresh and on time.</p></div><div className="p-3"><div className="text-3xl">⭐</div><h3 className="font-semibold mt-2">Great Offers</h3><p className="text-gray-500 text-xs mt-1">Exclusive deals and discounts.</p></div><div className="p-3"><div className="text-3xl">💚</div><h3 className="font-semibold mt-2">Happy Customers</h3><p className="text-gray-500 text-xs mt-1">Thousands of pizza lovers trust PizzaHub.</p></div></div>
       </section>
