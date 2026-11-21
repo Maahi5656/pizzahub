@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../../app/globals.css"
 
+import { Toaster } from "@/components/ui/toast";
+
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
@@ -26,7 +28,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       {/* <body className="min-h-full flex flex-col"> */}
       <body className="bg-[#FFF8F3] text-gray-900 font-sans">
         <Header />
-        {children}
+        <main>
+          {children}
+        </main>
+        <Toaster />
         <Footer />
       </body>
     </html>

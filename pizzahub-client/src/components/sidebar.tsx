@@ -23,7 +23,7 @@ const menuItemsByRole = {
 
     vendor: [
         {id: "dashboard", name: "Overview", url: "/dashboard/vendor" },
-        {id: "menu-items", name: "My Menu Items", url: "/dashboard/vendor/menu"},
+        {id: "business-profile", name: "Business Info", url: "/dashboard/vendor/business-info"},
         {id: "add-menu-items", name: "Add Menu Items", url: "/dashboard/vendor/add-menu"},
         {id: "orders", name: "Customer Orders", url: "/dashboard/vendor/orders"},
         {id: "subscription", name: "Subscription", url: "/dashboard/vendor/subscription"},
@@ -42,7 +42,7 @@ const menuItemsByRole = {
 
 const Sidebar = () => {
 
-    const role = "customer"
+    const role = "vendor"
 
     return (
         <>
