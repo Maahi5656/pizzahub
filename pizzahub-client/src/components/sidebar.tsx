@@ -1,4 +1,18 @@
+"use client"
+
 import Link from "next/link"
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
+
+import { Button } from "./ui/button";
+
+import { UserRole } from "@/lib/types/users";
+
+interface UserMenu{
+    id: string,
+    name: string,
+    url: string
+}
 
 import { Plus, 
   PlusCircleIcon,
@@ -14,7 +28,8 @@ import { Plus,
   PlusCircle,
 } from "lucide-react"
 
-const menuItemsByRole = {
+
+const menuItemsByRole: Record<UserRole, UserMenu[]> = {
     customer: [
         {id: "dashboard", name: "Overview", url: "/dashboard/customer" },
         {id: "orders", name: "My Orders", url: "/dashboard/customer/orders"},
@@ -37,12 +52,31 @@ const menuItemsByRole = {
         {id: "transactions", name: "Transactions", url: "/dashboard/admin/transactions"},
         {id: "settings", name: "Profile Settings", url: "/dashboard/customer/settings"},
     ]
-
-}
+};
 
 const Sidebar = () => {
 
-    const role = "vendor"
+    
+    const { data:session, isPending } = authClient.useSession();
+
+    if (isPending) {
+        return <p>Loading sidebar...</p>;
+    }
+
+    if (!session?.user) {
+        return null;
+    }
+
+    const role = session.user.role;
+
+    if (!role || !(role in menuItemsByRole)) {
+        return null;
+    }
+
+    const signOut=async()=>{
+        await authClient.signOut();
+        redirect('/')
+    }
 
     return (
         <>
@@ -55,7 +89,7 @@ const Sidebar = () => {
                         ))
                     }
                 </nav>
-                <Link href="login.html" className="text-sm px-3 py-2 hover:text-white">↩ Logout</Link>
+                <Button onClick={signOut} className="text-sm px-3 py-2 hover:text-white">↩ Logout</Button>
             </aside>   
         </>
     );
