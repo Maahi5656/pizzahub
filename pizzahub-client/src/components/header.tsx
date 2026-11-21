@@ -10,7 +10,7 @@ const Header = () => {
 
     const { data:session } = authClient.useSession();
     const user = session?.user;
-
+ 
     return (
         <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b">
             <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-4">

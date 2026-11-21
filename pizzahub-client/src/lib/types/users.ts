@@ -11,6 +11,8 @@ export interface IUser{
     profileImage: string,
     isBlocked: boolean,
     businessName?: string,
+    businessLogo?:string,
+    businessLocation: string,
     subscriptionPlan: Subscription,
     subscriptionExpiresAt?: string
-}
+}  
