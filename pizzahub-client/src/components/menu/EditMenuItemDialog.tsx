@@ -73,7 +73,7 @@ const EditMenuItemDialog = ({menuItem}:{ menuItem:IMenu }) => {
     const update=(field: keyof typeof form, value: string | null)=>{
         setForm((current)=>({
             ...current,
-            [field]:value
+            [field]:value 
         }));
     } 
 

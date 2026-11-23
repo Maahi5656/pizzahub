@@ -15,4 +15,4 @@ export interface IUser{
     businessLocation: string,
     subscriptionPlan: Subscription,
     subscriptionExpiresAt?: string
-}  
+}   

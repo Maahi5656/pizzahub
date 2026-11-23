@@ -28,6 +28,39 @@ const users = database.collection("user");
 const menu = database.collection("menu");
 const session = database.collection("session");
 
+app.get('/', (request,response)=>{
+    response.send({message: 'Server is running fine!'})
+});
+
+app.get('/user', async(request, response)=>{
+    const result = await users.find().toArray();
+
+    response.send(result);
+});
+
+app.get('/user/customer/:id', async(request, response)=>{
+    const id = request.params.id;
+    const result = await users.findOne({_id:new ObjectId(id)});
+
+    response.send(result); 
+});
+
+app.patch('/user/customer/:id', async(request, response)=>{
+    
+    const id = request.params.id;
+    const updateData = request.body;
+    const result = await users.updateOne(
+        {_id: new ObjectId(id)},
+        {$set: updateData}        
+    )
+    
+    response.json({
+        message: "User Information Updated Successfully",
+        result
+    });
+
+})
+
 app.patch('/user/:id/shop', async(request, response)=>{
     const { id } = request.params;
     const updateData = request.body;

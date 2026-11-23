@@ -26,13 +26,13 @@ import { toast } from "@/components/ui/toast"
 
 import { IMenu } from "@/lib/types/menu";
 
-import EditMenuItemDialog from "../EditMenuItemDialog"
-import DeleteMenuItemDialog from "../DeleteMenuItemDialog"
+import EditMenuItemDialog from "./EditMenuItemDialog"
+import DeleteMenuItemDialog from "./DeleteMenuItemDialog"
 
 const MenuTable = ({ userId }:{ userId:string }) => {
 
     const [menuItems, setMenuItems] = useState<IMenu[]>([]);
-    
+     
     useEffect(()=>{
        
         const fetchMenuItems=async()=>{
@@ -40,7 +40,7 @@ const MenuTable = ({ userId }:{ userId:string }) => {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/menu/vendor/${userId}`);
 
                 console.log(response);
-
+ 
                 if(!response.ok){
                     throw new Error("Failed to fetch menu items");
                 }

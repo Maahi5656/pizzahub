@@ -15,6 +15,6 @@ const MenuPage = () => {
             <MenuTable userId={user?.id as string} />
         </main>
     );
-};
+}; 
 
 export default MenuPage;
