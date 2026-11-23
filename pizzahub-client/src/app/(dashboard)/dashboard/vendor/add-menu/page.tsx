@@ -3,6 +3,19 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { 
+    ArrowLeft, 
+    ArrowRight, 
+    CalendarDays, 
+    Check, 
+    MapPin, 
+    Star, 
+    Pencil,
+    PackageCheck, 
+    Trash2 
+} from "lucide-react";
 
 import {
   Field,
@@ -13,34 +26,80 @@ import {
   FieldSeparator,
   FieldSet,
 } from "@/components/ui/field"
+
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 import { authClient } from "@/lib/auth-client";
 import { toast } from "@/components/ui/toast"
-import { a } from "shiki/dist/langs-bundle-full-C2VQ9nxh.mjs";
 
+import MenuTable from "@/components/menu/MenuTable";
 
 const AddMenuPage = () => {
 
+    const items = [
+        { label: "Select a category", value: null },
+        { label: "Classic Pizza", value: "Classic Pizza" },
+        { label: "Vegetarian", value: "Vegetarian" },
+        { label: "Meat Lovers", value: "Meat Lovers" },
+        { label: "Gourmet", value: "Gourmet" },
+        { label: "Sides & Appetizers", value: "Sides & Appetizers" },
+        { label: "Beverages & Desserts", value: "Beverages & Desserts" }
+    ];
+
+    const [category, setCategory] = useState<string | null>("");
     const { data:session } = authClient.useSession();
     const user = session?.user;
+    const router = useRouter();
+
+    // console.log(session);
 
     const handleSubmitForm=async(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
 
-        const form = new FormData();
-        const image = form.get("image");
+        const form = new FormData(e.currentTarget);
+        const image = form.get("image"); 
         const name = form.get("menuItem");
         const description = form.get("menuItemDesc");
+        const price = form.get("menuItemPrice");
+        // const category = form.get("menuCategory");
 
         if(!image){
             toast.add({
                 type: "error",
-                description: "Please select a business logo",
+                description: "Please select a menu image",
                 priority: "high"
             });
             return;            
+        }
+
+        if (!category) {
+            toast.add({
+                type: "error",
+                description: "Please select a category",
+                priority: "high"
+            });
+            return;
         }
 
         try{
@@ -64,8 +123,12 @@ const AddMenuPage = () => {
                 image: menuImage,
                 name: name,
                 description: description,
+                price: price,
+                category: category,
+                status: "pending",
                 userId: user?.id
             };
+
 
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/menu/`,{
                 method: "POST",
@@ -80,12 +143,18 @@ const AddMenuPage = () => {
             if (!response.ok) {
                 throw new Error(result.message || "Business update failed");
             } 
+        
+            setCategory("");
+
+            router.refresh();
+            window.location.reload();
 
             toast.add({
                 type: "success",
                 description: "New Menu Item Added Successfully!",
                 priority: "high"
             });
+
 
         }catch(error){
             console.error(error);
@@ -100,8 +169,8 @@ const AddMenuPage = () => {
     return (
         <div className="flex-1 min-w-0">
             <main className="px-4 sm:px-6 pb-10">
-                <section className="mt-6 bg-white rounded-2xl p-5 shadow-sm max-w-3xl">
-                    <div className="w-full max-w-md">
+                <section className="mt-6 max-w-3xl">
+                    <div className="w-full bg-white max-w-md shadow-sm rounded-2xl p-5">
                         <form onSubmit={handleSubmitForm}>
                             <FieldGroup>
                                 <FieldSet>
@@ -122,8 +191,34 @@ const AddMenuPage = () => {
                                     </FieldGroup>
                                     <FieldGroup>
                                         <Field>
+                                            <FieldLabel htmlFor="checkout-7j9-card-number-uw1">Price</FieldLabel>
+                                            <Input id="menu-item-price" name="menuItemPrice" placeholder="Enter Your Price..." required />
+                                        </Field>
+                                    </FieldGroup>
+                                    <FieldGroup>
+                                        <Field>
+                                            <FieldLabel htmlFor="checkout-7j9-card-number-uw1">Category</FieldLabel>
+                                            <Select value={category} onValueChange={setCategory} name="menuCategory" items={items}>
+                                              <SelectTrigger className="w-full">
+                                                <SelectValue />
+                                              </SelectTrigger>
+                                              <SelectContent>
+                                                <SelectGroup>
+                                                  <SelectLabel>--Category--</SelectLabel>
+                                                  {items.map((item) => (
+                                                    <SelectItem key={item.value} value={item.value}>
+                                                      {item.label}
+                                                    </SelectItem>
+                                                  ))}
+                                                </SelectGroup>
+                                              </SelectContent>
+                                            </Select>
+                                        </Field>
+                                    </FieldGroup>
+                                    <FieldGroup>
+                                        <Field>
                                             <FieldLabel htmlFor="checkout-7j9-card-number-uw1">Description</FieldLabel>
-                                            <Input id="menu-item-description" name="menuItemDesc" placeholder="Enter Your Shop Address..." required />
+                                            <Input id="menu-item-description" name="menuItemDesc" placeholder="Enter Your Menu Description..." required />
                                         </Field>
                                     </FieldGroup>
                                 </FieldSet>

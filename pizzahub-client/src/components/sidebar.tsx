@@ -40,6 +40,7 @@ const menuItemsByRole: Record<UserRole, UserMenu[]> = {
         {id: "dashboard", name: "Overview", url: "/dashboard/vendor" },
         {id: "business-profile", name: "Business Info", url: "/dashboard/vendor/business-info"},
         {id: "add-menu-items", name: "Add Menu Items", url: "/dashboard/vendor/add-menu"},
+        {id: "menu-items", name: "View Menu Items", url: "/dashboard/vendor/menu"},
         {id: "orders", name: "Customer Orders", url: "/dashboard/vendor/orders"},
         {id: "subscription", name: "Subscription", url: "/dashboard/vendor/subscription"},
         {id: "settings", name: "Profile Settings", url: "/dashboard/vendor/settings"},

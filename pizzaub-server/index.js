@@ -1,4 +1,4 @@
-import express, { response } from 'express'
+import express, { request, response } from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import { MongoClient, ObjectId } from 'mongodb';
@@ -18,7 +18,7 @@ export async function connectToMongoDB(){
         console.log("You Are Successfully Connected To MongoDB");
         return client;
     }catch(error){
-        console.log(error);
+        console.log(error); 
     }
 }
 
@@ -43,7 +43,7 @@ app.patch('/user/:id/shop', async(request, response)=>{
 
 });
 
-app.get('/menu/:id', async(request, response)=>{
+app.get('/menu/vendor/:id', async(request, response)=>{
     const id = request.params.id;
     const getItems = menu.find({userId:id});
     const result = await getItems.toArray();
@@ -56,7 +56,31 @@ app.post('/menu', async(request, response)=>{
     const result = await menu.insertOne(menuItem);
 
     return response.json(result);
-})
+});
+
+app.patch('/menu/:id', async(request, response)=>{
+    const { id } = request.params;
+    const updateData = request.body; 
+    const result = await menu.updateOne(
+        { _id: new ObjectId(id) },
+        {$set: updateData}
+    );
+
+    response.json({
+        message: "Menu Item Updated Successfully",
+        result
+    });
+});
+
+app.delete('/menu/:id', async(request, response)=>{
+    const { id } = request.params;
+    const result = await menu.deleteOne({_id: new ObjectId(id)});
+
+    response.json({
+        message: "Menu Item Deleted Successfully",
+        result
+    });
+});
 
 app.listen(port,()=>{
     console.log(`hire loop is running to port ${port}`)

@@ -2,12 +2,13 @@ export type MenuCategory = "Classic Pizza" | "Vegetarian" | "Meat Lovers" | "Gou
 export type MenuStatus = "pending" | "approved" | "rejected" | "inactive"
 
 export interface IMenu{
-    itemName: string,
+    _id?: string,
+    name: string,
     category: MenuCategory,
     description: string,
     price: number,
-    location: string,
-    images: string,
+    image: string,
     status:  MenuStatus,
-    createdAt: string
+    createdAt?: string,
+    userId: string,
 }
