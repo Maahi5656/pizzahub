@@ -38,6 +38,13 @@ app.get('/user', async(request, response)=>{
     response.send(result);
 });
 
+app.get('/user/:role', async(request, response)=>{
+    const { role } = request.params;
+    const result = await users.find({ role: role }).toArray();
+
+    response.send(result);
+})
+
 app.get('/user/customer/:id', async(request, response)=>{
     const id = request.params.id;
     const result = await users.findOne({_id:new ObjectId(id)});
@@ -58,8 +65,8 @@ app.patch('/user/customer/:id', async(request, response)=>{
         message: "User Information Updated Successfully",
         result
     });
+});
 
-})
 
 app.patch('/user/:id/shop', async(request, response)=>{
     const { id } = request.params;
