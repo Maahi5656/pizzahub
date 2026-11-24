@@ -67,6 +67,14 @@ app.patch('/user/customer/:id', async(request, response)=>{
     });
 });
 
+app.get('/users/:id/subscription', async(request, response)=>{
+
+    const id = request.params.id;
+    const query = { _id: new ObjectId(id) }
+    const result = await users.findOne(query, { projection: { subscriptionPlan: 1 }});
+
+    response.send(result);
+});
 
 app.patch('/user/:id/shop', async(request, response)=>{
     const { id } = request.params;
@@ -90,6 +98,38 @@ app.get('/menu/vendor/:id', async(request, response)=>{
 
     response.send(result);
 });
+
+app.get('/menu', async(request, response)=>{
+    const result = await menu.find().toArray();
+
+    response.send(result);
+});
+
+app.get('/menu/count', async(request, response)=>{
+
+    try{
+        const vendorId = request.query.vendorId;
+        
+        if (!vendorId) {
+            return response.status(400).send({
+                message: "Vendor ID is required"
+            });
+        }
+
+        const countMenu = await menu.countDocuments({
+            userId: vendorId
+        });
+
+        response.send(countMenu);
+
+    }catch(error){
+        console.error(error);
+        response.status(500).send({
+            message: "Failed to count menu items"
+        });
+    }
+});
+
 
 app.post('/menu', async(request, response)=>{
     const menuItem = request.body;

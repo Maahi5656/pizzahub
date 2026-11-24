@@ -53,6 +53,9 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { toast } from "@/components/ui/toast"
 
+import { getMenuCount } from "@/lib/api/menu";
+import { getUserPremiumUserId } from "@/lib/api/user";
+
 import MenuTable from "@/components/menu/MenuTable";
 
 const AddMenuPage = () => {
@@ -77,32 +80,60 @@ const AddMenuPage = () => {
     const handleSubmitForm=async(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
 
-        const form = new FormData(e.currentTarget);
-        const image = form.get("image"); 
-        const name = form.get("menuItem");
-        const description = form.get("menuItemDesc");
-        const price = form.get("menuItemPrice");
-        // const category = form.get("menuCategory");
-
-        if(!image){
-            toast.add({
-                type: "error",
-                description: "Please select a menu image",
-                priority: "high"
-            });
-            return;            
+        if(!user){
+            router.push('/signin');
+            return;
         }
-
-        if (!category) {
+        
+        if(user.role !== 'vendor'){
             toast.add({
                 type: "error",
-                description: "Please select a category",
+                description: "Only vendors can add menu items",
                 priority: "high"
             });
             return;
         }
 
-        try{
+        try
+        {
+            const countMenu = await getMenuCount(`vendorId=${user.id}`);
+            const premiumResult = await getUserPremiumUserId(user.id);
+
+            if(premiumResult.subscriptionPlan !== "premium" && countMenu.count>3){
+                toast.add({
+                    type: "error",
+                    description: "You have reached your free menu limit. Please subscribe to add more menu items.",
+                    priority: "high"
+                });
+                router.push('/dashboard/vendor/subscription');
+                return;
+            }
+
+            const form = new FormData(e.currentTarget);
+            const image = form.get("image"); 
+            const name = form.get("menuItem");
+            const description = form.get("menuItemDesc");
+            const price = form.get("menuItemPrice");
+            // const category = form.get("menuCategory");
+
+            if(!image){
+                toast.add({
+                    type: "error",
+                    description: "Please select a menu image",
+                    priority: "high"
+                });
+                return;            
+            }
+
+            if (!category) {
+                toast.add({
+                    type: "error",
+                    description: "Please select a category",
+                    priority: "high"
+                });
+                return;
+            }
+
             const imageData = new FormData();
             imageData.append("image", image);
 
@@ -155,14 +186,14 @@ const AddMenuPage = () => {
                 priority: "high"
             });
 
-
-        }catch(error){
+        }
+        catch(error){
             console.error(error);
             toast.add({
                 type: "error",
                 description: "Error! Something went wrong!",
                 priority: "high"
-            });            
+            }); 
         }
     }
 
