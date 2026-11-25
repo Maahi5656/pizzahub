@@ -80,6 +80,8 @@ const AddMenuPage = () => {
     const handleSubmitForm=async(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
 
+        const form = new FormData(e.currentTarget);
+
         if(!user){
             router.push('/signin');
             return;
@@ -109,7 +111,6 @@ const AddMenuPage = () => {
                 return;
             }
 
-            const form = new FormData(e.currentTarget);
             const image = form.get("image"); 
             const name = form.get("menuItem");
             const description = form.get("menuItemDesc");

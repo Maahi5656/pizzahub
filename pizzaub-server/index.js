@@ -67,7 +67,7 @@ app.patch('/user/customer/:id', async(request, response)=>{
     });
 });
 
-app.get('/users/:id/subscription', async(request, response)=>{
+app.get('/user/:id/subscription', async(request, response)=>{
 
     const id = request.params.id;
     const query = { _id: new ObjectId(id) }
@@ -120,7 +120,10 @@ app.get('/menu/count', async(request, response)=>{
             userId: vendorId
         });
 
-        response.send(countMenu);
+        // response.send(countMenu);
+        response.status(200).json({
+            count: countMenu
+        });
 
     }catch(error){
         console.error(error);

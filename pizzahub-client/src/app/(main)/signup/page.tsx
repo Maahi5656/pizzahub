@@ -8,14 +8,16 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "@/components/ui/toast"
 import { IUser } from "@/lib/types/users";
 import { UserRole } from "@/lib/types/users";
+import { Subscription } from "@/lib/types/subscription";
 
-const SignUp = () => {
+const SignUp = () => { 
     
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [role, setRole] = useState<UserRole>("customer");
+    const [subscriptionPlan, setSubscriptionPlan] = useState<Subscription>("free");
     // const isBlocked = false;
     
     const validEmail=(email:string)=>{
@@ -74,12 +76,14 @@ const SignUp = () => {
 
         // const formData = new FormData(e.target);
         // const user = Object.fromEntries(formData.entries()) as {name:string, email:string, password:string, role: UserRole};
-
+        setSubscriptionPlan("free"); 
+        
         const { data, error } = await authClient.signUp.email({
             name,
             email,
             password,
-            role
+            role,
+            subscriptionPlan
         });
 
         if(data){
@@ -101,7 +105,7 @@ const SignUp = () => {
           })
         }
     
-    }
+    } 
     
     return (
         <section className="relative flex justify-center items-center py-6 sm:py-8">
@@ -125,6 +129,9 @@ const SignUp = () => {
                     <div className="relative">
                         <span className="absolute left-4 top-3">🔑</span>
                         <input id="p2" type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)} className="w-full border rounded-xl pl-11 pr-4 py-3 bg-white text-sm" required/>
+                    </div>
+                    <div>
+                        <input type="hidden" name="subscription" value={subscriptionPlan} />
                     </div>
                     <p id="err" className="hidden text-sm text-brand">Passwords dont match. Re-enter them and try again.</p>
                     <fieldset className="text-sm">
