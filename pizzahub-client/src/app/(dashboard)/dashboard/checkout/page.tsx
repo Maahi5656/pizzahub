@@ -31,9 +31,7 @@ export default async function CheckoutPage({searchParams}:{searchParams: Promise
                 <Link href="/dashboard/vendor/subscription" aria-label="Back" className="mr-6 text-[#a1a1aa] transition-colors hover:text-black">
                     <ArrowLeft aria-hidden className="size-6" />
                 </Link>
-                <Link href="/dashboard/vendor/subscription" className="font-heading text-lg font-bold text-black">
-                    Hireloop
-                </Link>
+                <Link href="/dashboard/vendor/subscription" className="font-heading text-lg font-bold text-black">Pizza Hub</Link>
             </header>
             <main className="mx-auto grid w-full max-w-3xl gap-16 px-4 pb-16 pt-4 lg:grid-cols-2">
                 {/* Order summary */}
@@ -66,17 +64,17 @@ export default async function CheckoutPage({searchParams}:{searchParams: Promise
                 {/* Payment */}
                 <section>
                     <h2 className="text-sm font-semibold text-black">Payment method</h2>
-                    <div className={`mt-7 overflow-hidden rounded-lg border ${borderClass}`}>
+                    <div className={`mt-3 overflow-hidden rounded-lg border ${borderClass}`}>
                          {/* Card method header — the real form fields come from
                             Stripe, so the body is a redirect note for now. */}
                         <div className="flex items-center gap-3 border-b border-[#2e2e33] bg-[#27272a] px-4 py-3.5">
                             <CreditCard aria-hidden className="size-5 text-[#a1a1aa]" />
-                            <span className="text-sm font-medium text-black">Card</span>
+                            <span className="text-sm font-medium text-white">Card</span>
                         </div>
                         <div className="flex flex-col gap-4 p-4">
-                            <p className="min-h-[90px] text-base text-[#888891]">
+                            <p className="min-h-[90px] text-base text-[#27272a]">
                                 You&apos;ll be redirected to Stripe&apos;s secure checkout to complete
-                                your payment. Card details are never stored on Hireloop.
+                                your payment. Card details are never stored on PizzaHub.
                             </p>
                         </div>
                     </div>
@@ -84,8 +82,8 @@ export default async function CheckoutPage({searchParams}:{searchParams: Promise
                         {/* TODO: wire the Stripe Checkout Session redirect (pay-button). */}
                         <form action="/api/checkout_sessions" method="POST">
                             <section>
-                                <button type="submit" role="link" className="h-[60px] w-full rounded-lg bg-[#0070E0] text-lg font-bold text-white shadow-[0_4px_6px_-4px_rgba(94,158,246,0.3),0_10px_15px_-3px_rgba(94,158,246,0.3)] transition-colors hover:bg-[#3F90E5]">
-                                    Checkout {ORDER.amount}
+                                <button type="submit" role="link" className="h-[60px] w-full rounded-lg bg-[#0070E0] text-lg font-bold text-white shadow-[0_4px_6px_-4px_rgba(94,158,246,0.3),0_10px_15px_-3px_rgba(94,158,246,0.3)] transition-colors hover:bg-[#3F90E5] cursor-pointer">
+                                    Pay {ORDER.amount}
                                 </button>
                             </section>
                         </form>

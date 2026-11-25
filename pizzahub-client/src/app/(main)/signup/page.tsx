@@ -82,8 +82,7 @@ const SignUp = () => {
             name,
             email,
             password,
-            role,
-            subscriptionPlan
+            role
         });
 
         if(data){

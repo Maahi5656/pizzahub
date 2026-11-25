@@ -2,6 +2,10 @@ import express, { request, response } from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 import { MongoClient, ObjectId } from 'mongodb';
+import Stripe from 'stripe'
+
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY); 
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -27,6 +31,7 @@ const database = connectedClient.db("pizzahub");
 const users = database.collection("user");
 const menu = database.collection("menu");
 const session = database.collection("session");
+const payments = database.collection("payments");
 
 app.get('/', (request,response)=>{
     response.send({message: 'Server is running fine!'})
@@ -36,6 +41,14 @@ app.get('/user', async(request, response)=>{
     const result = await users.find().toArray();
 
     response.send(result);
+});
+
+app.get('/user/:id/premium', async(request, response)=>{
+    const id = request.params.id;
+    const query = { _id: new ObjectId(id) };
+    const result = await users.findOne(query, { projection: { subscriptionPlan: 1 }});
+
+    response.send({subscriptionPlan: result.subscriptionPlan});
 });
 
 app.get('/user/:role', async(request, response)=>{
@@ -163,6 +176,69 @@ app.delete('/menu/:id', async(request, response)=>{
         message: "Menu Item Deleted Successfully",
         result
     });
+});
+
+// payments related apis
+app.post('/payments/checkout-verify', async(request, response)=>{
+    const { sessionId } = request.body;
+
+    if(!sessionId){
+        response.send({success: false, message: "Session ID is required"});
+    }
+
+    const { 
+        status, 
+        payment_status, 
+        customer_email, 
+        metadata, 
+        payment_intent 
+    } = await stripe.checkout.sessions.retrieve(sessionId);
+
+    // 1) verify session (whether a new session or never used
+    // 2) is the session id for the currently logged in user
+    // 3) insert sessionId into the payment collection
+    // 4) update user information as premium user
+
+    if(status === 'complete' && payment_status === 'paid'){
+
+        const sessionQuery = { sessionId };
+        const existingPayment = await payments.findOne(sessionQuery);
+
+        if(existingPayment){
+            return response.send({success: false, message: 'Payment Already Verified'});
+        }
+
+        const payment = {
+            sessionId,
+            status,
+            payment_status,
+            customer_email,
+            userId: metadata.userId,
+            payment_date: new Date(),
+            payment_intent,
+        }
+
+        const result = await payments.insertOne(payment);
+
+        //update the user table
+        const query = { _id: new ObjectId(metadata.userId) };
+        const updatedDoc = {
+            $set: {
+                subscriptionPlan: "premium"
+            }
+        }
+
+        const updatedResult = await users.updateOne(
+            query,
+            updatedDoc
+        );
+        
+        response.send({ success: true, result, updatedResult });
+        return;
+    }
+
+    // response.send(session);
+    response.send({success: false, message: "Payment Verification Failed"});
 });
 
 app.listen(port,()=>{

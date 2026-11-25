@@ -98,8 +98,10 @@ const AddMenuPage = () => {
 
         try
         {
-            const countMenu = await getMenuCount(`vendorId=${user.id}`);
+            // is premium user
             const premiumResult = await getUserPremiumUserId(user.id);
+
+            const countMenu = await getMenuCount(`vendorId=${user.id}`);
 
             if(premiumResult.subscriptionPlan !== "premium" && countMenu.count>3){
                 toast.add({
