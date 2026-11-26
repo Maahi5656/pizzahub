@@ -6,4 +6,4 @@ export const getTokenFromClient=async()=>{
     const token = data?.token;
 
     return token;
-}
+} 

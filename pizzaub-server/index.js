@@ -37,6 +37,69 @@ app.get('/', (request,response)=>{
     response.send({message: 'Server is running fine!'})
 });
 
+// custom middleware
+const verifyToken = async(request, response, next)=>{
+    const authHeader = request.headers.authorization;
+
+    if(!authHeader){
+        response.send({status:401, message: 'Unauthorized'});
+        return;
+    }
+
+    const token = authHeader.split(' ')[1];
+
+    if(!token){
+        response.send({status: 401, message: 'Unauthorized'});
+        return;
+    }
+
+    // get session from 'token'
+    const query = { token };
+    const result = await session.findOne(query);
+    
+    if(!result){
+        response.status(401).send({message: 'Unauthorized'});
+        return;
+    }
+    // finding user from session
+    const userId = session.userId;
+
+    const userQuery = { _id: new ObjectId(userId) }
+    const user = await users.findOne(userQuery);
+
+    if(!user){
+        response.status(401).send({message: 'Unauthorized'});
+        return;        
+    }
+
+    request.user = user;
+    next();
+}
+
+const verifyCustomer = async(request, response, next)=>{
+    if(request.user.role !== "customer"){
+        response.status(403).send({message: 'Forbidden'});
+        return;        
+    }
+    next();
+}
+
+const verifyVendor = async(request, response, next)=>{
+    if(request.user.role !== "vendor"){
+        response.status(403).send({message: 'Forbidden'});
+        return;        
+    }
+    next();    
+}
+
+const verifyAdmin = async(request, response, next)=>{
+    if(request.user.role !== "admin"){
+        response.status(403).send({message: 'Forbidden'});
+        return;        
+    }
+    next();    
+}
+
 app.get('/user', async(request, response)=>{
     const result = await users.find().toArray();
 
@@ -58,14 +121,14 @@ app.get('/user/:role', async(request, response)=>{
     response.send(result);
 })
 
-app.get('/user/customer/:id', async(request, response)=>{
+app.get('/user/customer/:id', verifyToken, verifyCustomer, async(request, response)=>{
     const id = request.params.id;
     const result = await users.findOne({_id:new ObjectId(id)});
 
     response.send(result); 
 });
 
-app.patch('/user/customer/:id', async(request, response)=>{
+app.patch('/user/customer/:id', verifyToken, verifyCustomer, async(request, response)=>{
     
     const id = request.params.id;
     const updateData = request.body;
@@ -89,7 +152,7 @@ app.get('/user/:id/subscription', async(request, response)=>{
     response.send(result);
 });
 
-app.patch('/user/:id/shop', async(request, response)=>{
+app.patch('/user/:id/shop', verifyToken, verifyVendor, async(request, response)=>{
     const { id } = request.params;
     const updateData = request.body;
     const result = await users.updateOne(
@@ -104,7 +167,7 @@ app.patch('/user/:id/shop', async(request, response)=>{
 
 });
 
-app.get('/menu/vendor/:id', async(request, response)=>{
+app.get('/menu/vendor/:id', verifyToken, verifyToken, async(request, response)=>{
     const id = request.params.id;
     const getItems = menu.find({userId:id});
     const result = await getItems.toArray();

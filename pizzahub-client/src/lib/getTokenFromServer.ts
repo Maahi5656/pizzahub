@@ -9,4 +9,4 @@ export const getTokenFromServer=async()=>{
     const token = jwtToken?.token;
 
     return token;
-}
+} 
