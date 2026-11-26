@@ -55,6 +55,7 @@ import { toast } from "@/components/ui/toast"
 
 import { getMenuCount } from "@/lib/api/menu";
 import { getUserPremiumUserId } from "@/lib/api/user";
+import { getTokenFromClient } from "@/lib/getTokenFromClients";
 
 import MenuTable from "@/components/menu/MenuTable";
 
@@ -79,6 +80,8 @@ const AddMenuPage = () => {
 
     const handleSubmitForm=async(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
+
+        const token = await getTokenFromClient();
 
         const form = new FormData(e.currentTarget);
 
@@ -168,6 +171,7 @@ const AddMenuPage = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(menuData)                
             });

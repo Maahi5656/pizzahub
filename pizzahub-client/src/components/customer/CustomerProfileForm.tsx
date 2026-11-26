@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { toast } from "@/components/ui/toast"
+import { getTokenFromClient } from "@/lib/getTokenFromClients";
 
 import { IUser } from "@/lib/types/users";
 
@@ -43,6 +44,7 @@ const CustomerProfileForm = ({user}:{user: IUser}) => {
 
         try{
             const { ...formData } = form;
+            const token = await getTokenFromClient();
 
             const updateData = {
                 ...formData
@@ -52,6 +54,7 @@ const CustomerProfileForm = ({user}:{user: IUser}) => {
                 method: "PATCH",
                 headers:{
                     "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(updateData)
             }); 

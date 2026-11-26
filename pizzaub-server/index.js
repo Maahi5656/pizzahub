@@ -167,7 +167,7 @@ app.patch('/user/:id/shop', verifyToken, verifyVendor, async(request, response)=
 
 });
 
-app.get('/menu/vendor/:id', verifyToken, verifyToken, async(request, response)=>{
+app.get('/menu/vendor/:id', verifyToken, verifyVendor, async(request, response)=>{
     const id = request.params.id;
     const getItems = menu.find({userId:id});
     const result = await getItems.toArray();
@@ -210,14 +210,14 @@ app.get('/menu/count', async(request, response)=>{
 });
 
 
-app.post('/menu', async(request, response)=>{
+app.post('/menu', verifyToken, verifyVendor, async(request, response)=>{
     const menuItem = request.body;
     const result = await menu.insertOne(menuItem);
 
     return response.json(result);
 });
 
-app.patch('/menu/:id', async(request, response)=>{
+app.patch('/menu/:id', verifyToken, verifyVendor, async(request, response)=>{
     const { id } = request.params;
     const updateData = request.body; 
     const result = await menu.updateOne(
@@ -231,7 +231,7 @@ app.patch('/menu/:id', async(request, response)=>{
     });
 });
 
-app.delete('/menu/:id', async(request, response)=>{
+app.delete('/menu/:id', verifyToken, verifyVendor, async(request, response)=>{
     const { id } = request.params;
     const result = await menu.deleteOne({_id: new ObjectId(id)});
 

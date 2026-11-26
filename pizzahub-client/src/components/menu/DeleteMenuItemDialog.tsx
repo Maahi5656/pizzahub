@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { toast } from "@/components/ui/toast"
+import { getTokenFromClient } from "@/lib/getTokenFromClients";
 
 import { redirect } from "next/navigation";
 
@@ -31,8 +32,13 @@ const DeleteMenuItemDialog = ({id}:{id:string}) => {
 
     const handleDelete=async()=>{
 
+        const token = await getTokenFromClient();
+
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/menu/${id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+              authorization: `Bearer ${token}`
+            }
         });
 
         const data = await response.json();

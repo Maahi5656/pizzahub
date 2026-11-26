@@ -43,6 +43,7 @@ import { format } from "date-fns"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "@/components/ui/toast"
+import { getTokenFromClient } from "@/lib/getTokenFromClients";
 
 import { IMenu } from "@/lib/types/menu";
 
@@ -116,10 +117,13 @@ const EditMenuItemDialog = ({menuItem}:{ menuItem:IMenu }) => {
                 images: imageUrl
             };
 
+            const token = await getTokenFromClient();
+
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/menu/${menuItem._id}`, {
                 method: "PATCH",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(updateData)
             });

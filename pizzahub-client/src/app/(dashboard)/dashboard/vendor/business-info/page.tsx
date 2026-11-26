@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 
 import { authClient } from "@/lib/auth-client";
+import { getTokenFromClient } from "@/lib/getTokenFromClients";
 import { toast } from "@/components/ui/toast"
 
 const BusinessInfoPage = () => {
@@ -33,6 +34,8 @@ const BusinessInfoPage = () => {
         const image = form.get("image");
         const businessName = form.get("shopName");
         const businessLocation = form.get("shopAddress");
+
+        const token = await getTokenFromClient();
 
         // Validate image
         if (!(image instanceof File) || image.size === 0) {
@@ -71,6 +74,7 @@ const BusinessInfoPage = () => {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(userData)
             });
