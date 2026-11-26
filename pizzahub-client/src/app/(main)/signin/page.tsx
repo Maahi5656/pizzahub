@@ -29,8 +29,14 @@ const SignIn = () => {
               priority: "high"
             })            
         }
-
     }
+
+    const handleGoogleSignIn=async()=>{
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+        console.log(data);
+    };
 
     return (
         <section className="relative flex justify-center items-center py-6 sm:py-8">
@@ -58,7 +64,7 @@ const SignIn = () => {
                     <hr className="flex-1" /><span>OR</span><hr className="flex-1" />
                 </div>
                 <div className="space-y-3">
-                    <button className="w-full border-2 rounded-xl py-2.5 text-sm font-medium cursor-pointer">🇬 Continue with Google</button>
+                    <button onClick={handleGoogleSignIn} className="w-full border-2 rounded-xl py-2.5 text-sm font-medium cursor-pointer">🇬 Continue with Google</button>
                     {/* <button className="w-full border rounded-xl py-2.5 text-sm font-medium">🐙 Continue with GitHub</button> */}
                 </div>
                 <p className="text-center text-sm mt-5">Dont have an account? <Link href="/signup" className="text-brand font-semibold">Sign Up</Link></p>

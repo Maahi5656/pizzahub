@@ -114,7 +114,7 @@ app.get('/menu/vendor/:id', async(request, response)=>{
 
 app.get('/menu', async(request, response)=>{
     const result = await menu.find().toArray();
-
+  
     response.send(result);
 });
 
